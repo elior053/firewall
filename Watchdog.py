@@ -79,7 +79,7 @@ class ProxyHTTPRequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         """Handles POST requests with security validations before forwarding them."""
         self.log_request('POST')
-        if self.path == '/nataly-whatsapp':
+        if self.path == 'white list implations': # add webhook / or other ip's
             # Bypass security checks for requests to /nataly-whatsapp
             self.proxy_request(post=True)
         else:
@@ -133,10 +133,10 @@ class ProxyHTTPRequestHandler(BaseHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-    server_address = ('192.168.1.103', 443)
+    server_address = ('192.168.1.1', 443)
     httpd = ThreadedHTTPServer(server_address, ProxyHTTPRequestHandler)
     httpd.socket = ssl.wrap_socket(httpd.socket,
-                                   certfile=r'C:\Users\elior\PycharmProjects\AiServer\SSL\20240916_a76bda67.pem',
-                                   keyfile=r'C:\Users\elior\PycharmProjects\AiServer\SSL\private.key', server_side=True)
+                                   certfile=r'path/to.pem',
+                                   keyfile=r'path/to/private.key', server_side=True)
     logging.info("Proxy server is running")
     httpd.serve_forever()
